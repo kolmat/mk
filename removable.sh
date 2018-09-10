@@ -17,3 +17,4 @@ if [[ ${#removable[@]} -gt 1 ]]; then
 	done
 fi
 echo "no removable dev"
+
