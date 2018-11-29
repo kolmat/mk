@@ -1,0 +1,10 @@
+#'name','age','addres','high','weigh'
+name = {{ name }}
+age = {{ age }}
+addre = {{ addres }}
+high = {{ high }}
+weigh = {{ weigh }}
+
+{% for item in names %}
+  title = {{item}} {{temp[loop.index0]}}
+{% endfor %}

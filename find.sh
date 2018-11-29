@@ -20,6 +20,11 @@ print_find (){
   exit 0
 }
 
+search(){
+  $(find / -type d -perm 0777 -exec \
+    stat --format=%n:%a {} + > "$find_log_new")
+}
+
 set +e
 find "${find_log}" -mmin +"${time}" | egrep '.*'
 RET=$?
@@ -31,9 +36,8 @@ if [[ ! -f "${find_log}" ]] || [[ "${RET}" == '0' ]]; then
   # If lock return 1 jump to print_find and pront old file 
   # if lock is 0 then re-run find and then print findings
   
-  get_lock || print_find
-
-  $(find / -type d -perm 0777 > "$find_log_new")
+  get_lock || print_find 
+  search
   cp $find_log_new $find_log
   print_find
 
